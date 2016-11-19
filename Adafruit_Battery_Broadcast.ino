@@ -161,7 +161,7 @@ void setup(void)
   //SetupLow power mode
   rtc.begin();
 
-  // Set the alarm at the 10 second mark
+  // Set the alarm at the 5 second mark
   rtc.setAlarmSeconds(5);
 
   // Match only seconds (Periodic alarm every minute)
@@ -169,6 +169,9 @@ void setup(void)
 
   // Set sleep mode
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+
+  // Disable USB
+  USB->DEVICE.CTRLA.reg &= ~USB_CTRLA_ENABLE; 
 }
 
 /**************************************************************************/
@@ -203,7 +206,7 @@ void loop(void)
   int realValue = (int)((float) 100 * (measuredvbat - 3.2));
     
   
-  battery.update(value);
+  battery.update(realValue);
    value--;
   if (value == 0) value = 100;
 
