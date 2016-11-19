@@ -202,16 +202,11 @@ void loop(void)
 
   int realValue = (int)((float) 100 * (measuredvbat - 3.2));
     
-   // Blink LED - A delay is nessesary before writing to serial. 
- //  That's because native USb takes time to initialise, 500ms is the right amount of time. 
-  //digitalWrite(13, HIGH);
-  //delay(500);
-  //digitalWrite(13, LOW);
   
-  battery.update(realValue);
-  value --;
-  if (value == 0)
-  value = 100;
+  battery.update(value);
+   value--;
+  if (value == 0) value = 100;
+
   
   rtc.setAlarmSeconds((rtc.getSeconds() +5) % 60);  
 }
